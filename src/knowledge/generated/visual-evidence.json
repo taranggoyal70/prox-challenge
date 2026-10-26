@@ -1,0 +1,335 @@
+[
+  {
+    "id": "selection-chart:process-matrix",
+    "sourceId": "selection-chart:pdf-1",
+    "caption": "Visual process-selection matrix comparing flux-cored, MIG, stick, and TIG by skill, gas, material, thickness, applications, and weld cleanliness.",
+    "entities": [
+      "flux-cored",
+      "MIG",
+      "stick",
+      "TIG",
+      "steel",
+      "stainless steel",
+      "aluminum",
+      "gas",
+      "material thickness"
+    ],
+    "relationships": [
+      "process depends on material and thickness",
+      "MIG and TIG use shielding gas",
+      "flux-core and stick suit outdoor conditions"
+    ],
+    "aliases": [
+      "which process",
+      "choose a welder",
+      "process chart",
+      "GMAW",
+      "FCAW",
+      "SMAW",
+      "GTAW"
+    ],
+    "intents": [
+      "choose a welding process",
+      "compare weld cleanliness",
+      "check material compatibility"
+    ],
+    "regions": [
+      {
+        "id": "matrix",
+        "label": "Four-process comparison matrix",
+        "bounds": {
+          "x": 0.01,
+          "y": 0.29,
+          "width": 0.98,
+          "height": 0.48
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/selection-chart-process-matrix.webp",
+    "assetSha256": "3c98c315927ac35711560fd225a642f147118e2fba4512986cf89bf2d18fcf30"
+  },
+  {
+    "id": "owner-manual:pdf-13:flux-core-polarity",
+    "sourceId": "owner-manual:pdf-13",
+    "caption": "DCEN gasless flux-cored polarity: ground clamp in positive socket and wire feed power cable in negative socket.",
+    "entities": [
+      "positive socket",
+      "negative socket",
+      "ground clamp",
+      "wire feed power cable",
+      "DCEN"
+    ],
+    "relationships": [
+      "ground clamp connects positive",
+      "wire feed cable connects negative"
+    ],
+    "aliases": [
+      "flux core polarity",
+      "gasless polarity",
+      "ground positive",
+      "electrode negative"
+    ],
+    "intents": [
+      "set up flux-cored welding",
+      "check cable sockets"
+    ],
+    "regions": [
+      {
+        "id": "polarity",
+        "label": "Flux-cored DCEN cable diagram",
+        "bounds": {
+          "x": 0.43,
+          "y": 0.42,
+          "width": 0.53,
+          "height": 0.48
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/owner-manual-pdf-13-flux-core-polarity.webp",
+    "assetSha256": "2bd55ff8bee4020d9121b5ace1aad6d398f8b7e753b1bbdfb4ade38108be799c"
+  },
+  {
+    "id": "owner-manual:pdf-14:mig-polarity",
+    "sourceId": "owner-manual:pdf-14",
+    "caption": "DCEP gas-shielded solid-wire MIG polarity: ground clamp negative and wire feed power cable positive.",
+    "entities": [
+      "positive socket",
+      "negative socket",
+      "ground clamp",
+      "wire feed power cable",
+      "DCEP"
+    ],
+    "relationships": [
+      "ground clamp connects negative",
+      "wire feed cable connects positive"
+    ],
+    "aliases": [
+      "MIG polarity",
+      "solid wire polarity",
+      "ground negative",
+      "electrode positive"
+    ],
+    "intents": [
+      "set up MIG welding",
+      "check cable sockets"
+    ],
+    "regions": [
+      {
+        "id": "polarity",
+        "label": "MIG DCEP cable diagram",
+        "bounds": {
+          "x": 0.43,
+          "y": 0.02,
+          "width": 0.54,
+          "height": 0.48
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/owner-manual-pdf-14-mig-polarity.webp",
+    "assetSha256": "24bdf026063b0562fb87336bd9eddffc1b783d335d4ca11a4b78ccbaccbc4a32"
+  },
+  {
+    "id": "owner-manual:pdf-19:duty-cycle",
+    "sourceId": "owner-manual:pdf-19",
+    "caption": "Rated duty-cycle charts: 120VAC 40% at 100A and 240VAC 25% at 200A, plus 100% continuous ratings.",
+    "entities": [
+      "120VAC",
+      "240VAC",
+      "100A",
+      "200A",
+      "25 percent",
+      "40 percent",
+      "ten-minute period"
+    ],
+    "relationships": [
+      "200A at 240V permits 2.5 minutes welding and 7.5 minutes rest"
+    ],
+    "aliases": [
+      "duty cycle chart",
+      "cool down",
+      "welding time",
+      "rest time"
+    ],
+    "intents": [
+      "calculate duty cycle",
+      "avoid overheating"
+    ],
+    "regions": [
+      {
+        "id": "charts",
+        "label": "120V and 240V rated duty-cycle charts",
+        "bounds": {
+          "x": 0.51,
+          "y": 0.03,
+          "width": 0.45,
+          "height": 0.46
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/owner-manual-pdf-19-duty-cycle.webp",
+    "assetSha256": "e751d9ccd42ca86d88f02714ef34ec5ade784a2af2580bb2665c5f0d3f7eb1f6"
+  },
+  {
+    "id": "owner-manual:pdf-24:tig-polarity",
+    "sourceId": "owner-manual:pdf-24",
+    "caption": "TIG DCEN connections with ground clamp positive and TIG torch cable negative, including foot-pedal and gas-hose context.",
+    "entities": [
+      "TIG torch",
+      "ground clamp",
+      "positive socket",
+      "negative socket",
+      "foot pedal",
+      "shielding gas"
+    ],
+    "relationships": [
+      "ground clamp connects positive",
+      "TIG torch connects negative"
+    ],
+    "aliases": [
+      "TIG polarity",
+      "torch negative",
+      "ground positive",
+      "GTAW setup"
+    ],
+    "intents": [
+      "set up TIG welding",
+      "connect TIG torch"
+    ],
+    "regions": [
+      {
+        "id": "connections",
+        "label": "TIG torch and ground cable connections",
+        "bounds": {
+          "x": 0.04,
+          "y": 0.2,
+          "width": 0.92,
+          "height": 0.62
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/owner-manual-pdf-24-tig-polarity.webp",
+    "assetSha256": "9392844d853cad09d757a18dc7ca2375717f82d92c904d66795119315d64009a"
+  },
+  {
+    "id": "owner-manual:pdf-36:penetration",
+    "sourceId": "owner-manual:pdf-36",
+    "caption": "Cross-section diagrams comparing excessive, proper, and inadequate weld penetration with corrective actions.",
+    "entities": [
+      "excess penetration",
+      "proper penetration",
+      "inadequate penetration",
+      "workpiece",
+      "weld bead"
+    ],
+    "relationships": [
+      "heat and travel speed affect penetration"
+    ],
+    "aliases": [
+      "burn through",
+      "weld not adhering",
+      "penetration profile"
+    ],
+    "intents": [
+      "diagnose weld penetration",
+      "compare bead profiles"
+    ],
+    "regions": [
+      {
+        "id": "profiles",
+        "label": "Weld penetration profile comparison",
+        "bounds": {
+          "x": 0.05,
+          "y": 0.04,
+          "width": 0.9,
+          "height": 0.43
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/owner-manual-pdf-36-penetration.webp",
+    "assetSha256": "e9c9de99fc120dcf3c2fe869f89df8d04664d9ad2b1c1246bf04e5960e92805a"
+  },
+  {
+    "id": "owner-manual:pdf-37:porosity",
+    "sourceId": "owner-manual:pdf-37",
+    "caption": "Wire-weld porosity diagram and possible causes: polarity, shielding gas for MIG, contamination, travel speed, and CTWD.",
+    "entities": [
+      "porosity",
+      "weld bead",
+      "shielding gas",
+      "CTWD",
+      "polarity",
+      "contamination"
+    ],
+    "relationships": [
+      "incorrect polarity or contamination can cause porosity",
+      "shielding-gas checks apply to MIG"
+    ],
+    "aliases": [
+      "holes in weld",
+      "small cavities",
+      "porous weld",
+      "gas pockets"
+    ],
+    "intents": [
+      "diagnose porosity",
+      "fix holes in weld"
+    ],
+    "regions": [
+      {
+        "id": "porosity",
+        "label": "Porosity example and diagnostic list",
+        "bounds": {
+          "x": 0.03,
+          "y": 0.02,
+          "width": 0.47,
+          "height": 0.57
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/owner-manual-pdf-37-porosity.webp",
+    "assetSha256": "7118be8744d42f5e959697ebf32f2547065d82cf57ce77a7f330fa59bff09b47"
+  },
+  {
+    "id": "owner-manual:pdf-45:wiring-schematic",
+    "sourceId": "owner-manual:pdf-45",
+    "caption": "Full electrical wiring schematic showing AC input, rectifier, PFC/IGBT power stages, MCU board, remote board, fans, wire feeder, and solenoid valves.",
+    "entities": [
+      "MCU board",
+      "remote board",
+      "fan",
+      "wire feeder",
+      "solenoid valve",
+      "rectifier",
+      "PFC",
+      "IGBT"
+    ],
+    "relationships": [
+      "remote board connects torch and pedal inputs",
+      "MCU board controls wire feeder and solenoids"
+    ],
+    "aliases": [
+      "electrical diagram",
+      "circuit diagram",
+      "control board wiring",
+      "internal wiring"
+    ],
+    "intents": [
+      "inspect wiring schematic",
+      "locate control-board connections"
+    ],
+    "regions": [
+      {
+        "id": "schematic",
+        "label": "OmniPro 220 wiring schematic",
+        "bounds": {
+          "x": 0.04,
+          "y": 0.05,
+          "width": 0.88,
+          "height": 0.88
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/owner-manual-pdf-45-wiring-schematic.webp",
+    "assetSha256": "6d77880b21a37a05c8c24e60434673d350d32858ad610e4af05736fb958f1bfb"
+  }
+]

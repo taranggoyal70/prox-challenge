@@ -1,0 +1,58 @@
+{
+  "name": "arclens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A source-grounded visual product expert for the Vulcan OmniPro 220.",
+  "engines": {
+    "node": ">=24.0.0 <25",
+    "npm": ">=11.0.0 <12"
+  },
+  "packageManager": "npm@11.6.0",
+  "scripts": {
+    "preinstall": "node scripts/preinstall.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run",
+    "eval:offline": "tsx scripts/run-offline-evals.ts",
+    "check:knowledge": "node scripts/check-knowledge.mjs",
+    "build:knowledge": "node scripts/build-knowledge.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "help": "node scripts/help.mjs",
+    "verify": "npm run check:knowledge && npm run typecheck && npm run lint && npm run test && npm run build"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "0.3.310",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5",
+    "zod": "4.6.7"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-darwin-arm64": "1.2.15",
+    "@rolldown/binding-linux-arm64-gnu": "1.2.15",
+    "@rolldown/binding-linux-x64-gnu": "1.2.15"
+  },
+  "devDependencies": {
+    "@fontsource/barlow-condensed": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@fontsource-variable/source-sans-3": "5.3.1",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@types/node": "24.10.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.3",
+    "jsdom": "29.1.1",
+    "typescript": "6.0.3",
+    "tsx": "4.23.15",
+    "vitest": "5.0.5"
+  }
+}

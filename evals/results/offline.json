@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "suite": "offline-core",
+  "casesVersion": 1,
+  "corpusVersion": "14c0b1eb5c7ac795",
+  "startedAt": "2026-10-26T09:42:16.280Z",
+  "completedAt": "2026-10-26T09:42:16.311Z",
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "passRate": 1
+  },
+  "results": [
+    {
+      "id": "hard-duty-240-200",
+      "category": "deterministic",
+      "pass": true,
+      "details": "25%; 2.5 minutes welding; 7.5 minutes resting; PDF page 19"
+    },
+    {
+      "id": "hard-flux-porosity",
+      "category": "cross-page",
+      "pass": true,
+      "details": "DCEN plus five process-correct porosity checks"
+    },
+    {
+      "id": "hard-tig-polarity",
+      "category": "deterministic",
+      "pass": true,
+      "details": "ground positive; TIG torch negative; PDF page 24"
+    },
+    {
+      "id": "mig-polarity",
+      "category": "deterministic",
+      "pass": true,
+      "details": "DCEP; ground negative; wire feed positive"
+    },
+    {
+      "id": "unsupported-duty",
+      "category": "abstention",
+      "pass": true,
+      "details": "unsupported point abstains without interpolation"
+    },
+    {
+      "id": "selection-chart-visual",
+      "category": "visual-retrieval",
+      "pass": true,
+      "details": "selection-chart:pdf-1 with visual evidence"
+    },
+    {
+      "id": "wiring-visual",
+      "category": "visual-retrieval",
+      "pass": true,
+      "details": "owner-manual:pdf-45 with visual evidence"
+    },
+    {
+      "id": "flux-no-gas",
+      "category": "ambiguity",
+      "pass": true,
+      "details": "gasless flux-core excludes MIG shielding-gas branches"
+    },
+    {
+      "id": "source-boundaries",
+      "category": "integrity",
+      "pass": true,
+      "details": "owner-manual pages 1–48 addressable; page zero rejected"
+    },
+    {
+      "id": "corpus-shape",
+      "category": "integrity",
+      "pass": true,
+      "details": "51 pages across three source documents"
+    }
+  ]
+}

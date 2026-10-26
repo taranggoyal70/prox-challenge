@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "round": 3,
+  "document": "/Users/tarang/Documents/ChatGPT/Job Assessment prep/prox-challenge/docs/designs/arclens-assessment.md",
+  "quality_score": 9,
+  "dimensions": {
+    "completeness": "ISSUES",
+    "consistency": "ISSUES",
+    "clarity": "ISSUES",
+    "scope": "PASS",
+    "feasibility": "ISSUES"
+  },
+  "findings": [
+    {
+      "id": "R3-1",
+      "dimension": "feasibility",
+      "problem": "The grounding gate relies on a structured answer envelope, but the four declared agent tools do not include an answer-submission tool and the design never defines an Agent SDK structured-output schema; an unrestricted final text result cannot be reliably decomposed into claims and source IDs for validation.",
+      "remedy": "Define the exact final-answer production contract, such as a validated `submit_answer` MCP tool or supported structured output schema, with typed claims, source IDs, safety flags, clarification/abstention variants, and user-facing prose. Reject or repair free-form final output before any answer event is emitted."
+    },
+    {
+      "id": "R3-2",
+      "dimension": "consistency",
+      "problem": "The release corpus requires two cases for every artifact family while the Scope Boundary classifies the settings configurator and weld-defect gallery as should-have work that cannot start until the core gate passes; the stated submission gate therefore makes optional artifacts blocking before they exist.",
+      "remedy": "Split evaluation into a blocking core suite for the four must-have artifact families and an extended suite enabled only for implemented should-have artifacts, or move all six families into must-have scope. State which suite controls submission readiness."
+    },
+    {
+      "id": "R3-3",
+      "dimension": "clarity",
+      "problem": "`SourceRef.pdfPageIndex` is the machine lookup key but its zero-based or one-based convention is unspecified, preserving an avoidable off-by-one risk at the page renderer boundary.",
+      "remedy": "Name the convention in the type or field documentation, preferably use an explicit one-based `pdfPageNumber` for file-facing references, and add boundary tests for the first and last page of every document."
+    },
+    {
+      "id": "R3-4",
+      "dimension": "completeness",
+      "problem": "The design says a lost session restarts with the visible transcript summarized into a new request, but it does not define who creates that summary, what transcript subset is sent, or how technical claims in the summary avoid becoming ungrounded context for later answers.",
+      "remedy": "Specify a bounded recovery payload that sends prior user turns plus already validated answer envelopes and source IDs, not a free-form client summary; re-run retrieval for new answers and never treat recovered assistant text as evidence."
+    }
+  ],
+  "prior": [
+    {
+      "id": "R2-1",
+      "status": "resolved",
+      "evidence": "The stream contract replaces text deltas with one buffered `answer` event and explicitly sends only status while Claude works, followed by sources, validated artifacts, and validated answer text after the grounding gate accepts the envelope.",
+      "current_id": null
+    },
+    {
+      "id": "R2-2",
+      "status": "resolved",
+      "evidence": "The conversation contract now serializes requests per conversation, returns `conversation_busy` for overlap, defines idempotent cancel/reset/expiry transitions and race winners, and lists reducer and integration race tests.",
+      "current_id": null
+    },
+    {
+      "id": "R2-3",
+      "status": "resolved",
+      "evidence": "The artifact section now defines request-process validation and normalization, server ID assignment, a tool-call-keyed event collector, a small receipt to Claude, post-acceptance draining, and replay deduplication.",
+      "current_id": null
+    },
+    {
+      "id": "R2-4",
+      "status": "resolved",
+      "evidence": "The Agent tools section selects `claude-sonnet-5-5` at high effort, defines explicit model and effort overrides, records resolved values in health, usage, and eval output, and prohibits silent fallback on access errors.",
+      "current_id": null
+    },
+    {
+      "id": "R2-5",
+      "status": "resolved",
+      "evidence": "The revised `done` event contains only `conversationId` and usage, and the contract states that the provider session ID never leaves the server.",
+      "current_id": null
+    }
+  ]
+}

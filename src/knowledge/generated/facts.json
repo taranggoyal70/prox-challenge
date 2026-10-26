@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "corpusVersion": "14c0b1eb5c7ac795",
+  "facts": [
+    {
+      "id": "duty:mig:120v:100a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "mig",
+        "inputVoltage": 120,
+        "amperage": 100
+      },
+      "output": {
+        "ratedPercent": 40,
+        "weldingMinutes": 4,
+        "restingMinutes": 6
+      },
+      "sourceIds": [
+        "owner-manual:pdf-19"
+      ]
+    },
+    {
+      "id": "duty:mig:120v:75a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "mig",
+        "inputVoltage": 120,
+        "amperage": 75
+      },
+      "output": {
+        "ratedPercent": 100,
+        "weldingMinutes": 10,
+        "restingMinutes": 0
+      },
+      "sourceIds": [
+        "owner-manual:pdf-19"
+      ]
+    },
+    {
+      "id": "duty:mig:240v:200a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "mig",
+        "inputVoltage": 240,
+        "amperage": 200
+      },
+      "output": {
+        "ratedPercent": 25,
+        "weldingMinutes": 2.5,
+        "restingMinutes": 7.5
+      },
+      "sourceIds": [
+        "owner-manual:pdf-19"
+      ]
+    },
+    {
+      "id": "duty:mig:240v:115a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "mig",
+        "inputVoltage": 240,
+        "amperage": 115
+      },
+      "output": {
+        "ratedPercent": 100,
+        "weldingMinutes": 10,
+        "restingMinutes": 0
+      },
+      "sourceIds": [
+        "owner-manual:pdf-19"
+      ]
+    },
+    {
+      "id": "duty:flux-core:120v:100a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "flux-core",
+        "inputVoltage": 120,
+        "amperage": 100
+      },
+      "output": {
+        "ratedPercent": 40,
+        "weldingMinutes": 4,
+        "restingMinutes": 6
+      },
+      "sourceIds": [
+        "owner-manual:pdf-19"
+      ]
+    },
+    {
+      "id": "duty:flux-core:120v:75a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "flux-core",
+        "inputVoltage": 120,
+        "amperage": 75
+      },
+      "output": {
+        "ratedPercent": 100,
+        "weldingMinutes": 10,
+        "restingMinutes": 0
+      },
+      "sourceIds": [
+        "owner-manual:pdf-19"
+      ]
+    },
+    {
+      "id": "duty:flux-core:240v:200a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "flux-core",
+        "inputVoltage": 240,
+        "amperage": 200
+      },
+      "output": {
+        "ratedPercent": 25,
+        "weldingMinutes": 2.5,
+        "restingMinutes": 7.5
+      },
+      "sourceIds": [
+        "owner-manual:pdf-19"
+      ]
+    },
+    {
+      "id": "duty:flux-core:240v:115a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "flux-core",
+        "inputVoltage": 240,
+        "amperage": 115
+      },
+      "output": {
+        "ratedPercent": 100,
+        "weldingMinutes": 10,
+        "restingMinutes": 0
+      },
+      "sourceIds": [
+        "owner-manual:pdf-19"
+      ]
+    },
+    {
+      "id": "duty:tig:120v:125a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "tig",
+        "inputVoltage": 120,
+        "amperage": 125
+      },
+      "output": {
+        "ratedPercent": 40,
+        "weldingMinutes": 4,
+        "restingMinutes": 6
+      },
+      "sourceIds": [
+        "owner-manual:pdf-29"
+      ]
+    },
+    {
+      "id": "duty:tig:120v:90a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "tig",
+        "inputVoltage": 120,
+        "amperage": 90
+      },
+      "output": {
+        "ratedPercent": 100,
+        "weldingMinutes": 10,
+        "restingMinutes": 0
+      },
+      "sourceIds": [
+        "owner-manual:pdf-29"
+      ]
+    },
+    {
+      "id": "duty:tig:240v:175a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "tig",
+        "inputVoltage": 240,
+        "amperage": 175
+      },
+      "output": {
+        "ratedPercent": 30,
+        "weldingMinutes": 3,
+        "restingMinutes": 7
+      },
+      "sourceIds": [
+        "owner-manual:pdf-29"
+      ]
+    },
+    {
+      "id": "duty:tig:240v:105a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "tig",
+        "inputVoltage": 240,
+        "amperage": 105
+      },
+      "output": {
+        "ratedPercent": 100,
+        "weldingMinutes": 10,
+        "restingMinutes": 0
+      },
+      "sourceIds": [
+        "owner-manual:pdf-29"
+      ]
+    },
+    {
+      "id": "duty:stick:120v:80a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "stick",
+        "inputVoltage": 120,
+        "amperage": 80
+      },
+      "output": {
+        "ratedPercent": 40,
+        "weldingMinutes": 4,
+        "restingMinutes": 6
+      },
+      "sourceIds": [
+        "owner-manual:pdf-29"
+      ]
+    },
+    {
+      "id": "duty:stick:120v:60a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "stick",
+        "inputVoltage": 120,
+        "amperage": 60
+      },
+      "output": {
+        "ratedPercent": 100,
+        "weldingMinutes": 10,
+        "restingMinutes": 0
+      },
+      "sourceIds": [
+        "owner-manual:pdf-29"
+      ]
+    },
+    {
+      "id": "duty:stick:240v:175a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "stick",
+        "inputVoltage": 240,
+        "amperage": 175
+      },
+      "output": {
+        "ratedPercent": 25,
+        "weldingMinutes": 2.5,
+        "restingMinutes": 7.5
+      },
+      "sourceIds": [
+        "owner-manual:pdf-29"
+      ]
+    },
+    {
+      "id": "duty:stick:240v:100a",
+      "predicate": "duty_cycle",
+      "inputs": {
+        "process": "stick",
+        "inputVoltage": 240,
+        "amperage": 100
+      },
+      "output": {
+        "ratedPercent": 100,
+        "weldingMinutes": 10,
+        "restingMinutes": 0
+      },
+      "sourceIds": [
+        "owner-manual:pdf-29"
+      ]
+    },
+    {
+      "id": "polarity:flux-core",
+      "predicate": "polarity_layout",
+      "inputs": {
+        "process": "flux-core"
+      },
+      "output": {
+        "process": "Flux-cored (gasless)",
+        "polarity": "DCEN",
+        "groundSocket": "positive",
+        "electrodeSocket": "negative",
+        "electrodeLabel": "Wire feed power cable"
+      },
+      "sourceIds": [
+        "owner-manual:pdf-13"
+      ]
+    },
+    {
+      "id": "polarity:mig",
+      "predicate": "polarity_layout",
+      "inputs": {
+        "process": "mig"
+      },
+      "output": {
+        "process": "MIG (gas-shielded solid wire)",
+        "polarity": "DCEP",
+        "groundSocket": "negative",
+        "electrodeSocket": "positive",
+        "electrodeLabel": "Wire feed power cable"
+      },
+      "sourceIds": [
+        "owner-manual:pdf-14"
+      ]
+    },
+    {
+      "id": "polarity:tig",
+      "predicate": "polarity_layout",
+      "inputs": {
+        "process": "tig"
+      },
+      "output": {
+        "process": "TIG",
+        "polarity": "DCEN",
+        "groundSocket": "positive",
+        "electrodeSocket": "negative",
+        "electrodeLabel": "TIG torch cable"
+      },
+      "sourceIds": [
+        "owner-manual:pdf-24"
+      ]
+    },
+    {
+      "id": "polarity:stick",
+      "predicate": "polarity_layout",
+      "inputs": {
+        "process": "stick"
+      },
+      "output": {
+        "process": "Stick",
+        "polarity": "DCEP",
+        "groundSocket": "negative",
+        "electrodeSocket": "positive",
+        "electrodeLabel": "Electrode holder cable"
+      },
+      "sourceIds": [
+        "owner-manual:pdf-27"
+      ]
+    }
+  ]
+}

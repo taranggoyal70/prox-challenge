@@ -1,92 +1,153 @@
-# Prox Engineering Challenge
+# ArcLens
 
-<img src="product.webp" alt="Vulcan OmniPro 220" width="400" /> <img src="product-inside.webp" alt="Vulcan OmniPro 220 — inside panel" width="400" />
+ArcLens is a source-grounded visual product expert for the Vulcan OmniPro 220. It answers setup and troubleshooting questions from the supplied manuals, computes safety-critical facts in deterministic code, and returns inspectable citations and visual artifacts.
 
-## The Product
+The default experience needs no API key and makes no provider calls. It opens a complete Recorded Proof of the three challenge flows so an evaluator can inspect the product immediately.
 
-The [Vulcan OmniPro 220](https://www.harborfreight.com/omnipro-220-industrial-multiprocess-welder-with-120240v-input-57812.html) is a multiprocess welding system sold by Harbor Freight. It supports four welding processes (MIG, Flux-Cored, TIG, and Stick), runs on both 120V and 240V input, and has an LCD-based synergic control system.
+## Run it in two commands
 
-Its owner's manual is 48 pages of dense technical content. Duty cycle matrices across multiple voltages and amperages, polarity setup procedures that differ per welding process, wire feed mechanisms with specific tensioner calibrations, wiring schematics, troubleshooting matrices, weld diagnosis diagrams, and a full parts list.
+Requirements: Node.js 24 and npm 11. The repository pins Node `24.10.0` in `.nvmrc`.
 
-This is exactly the kind of product Prox exists for. Nobody knows how to use this machine straight out of the box but has time to read 48 page manual, but a complicated machine needs expert-level support.
+```bash
+npm ci
+npm run dev
+```
 
-Additional video: https://www.youtube.com/watch?v=kxGDoGcnhBw
-
-## Your Job
-
-Build a multimodal reasoning agent for the Vulcan OmniPro 220 using the Claude Agent SDK. The agent must be able to answer deep technical questions about this product accurately, helpfully, and not just in text.
-
-The manuals are in the `files/` directory.
-
-**There is no limit to how far you can go.** You can integrate voice. You can build a full interactive experience. Sky is the limit. The more ambitious and polished, the better.
-
-## What We're Testing
-
-### 1. Deep Technical Accuracy
-
-Your agent needs to answer questions like these correctly:
+Open [http://localhost:3000](http://localhost:3000). The header should show **Recorded proof**, and the question field should be disabled with the prompt to add a key for live answers. Try the three suggested questions:
 
 - "What's the duty cycle for MIG welding at 200A on 240V?"
 - "I'm getting porosity in my flux-cored welds. What should I check?"
 - "What polarity setup do I need for TIG welding? Which socket does the ground clamp go in?"
 
-We will test with questions that require cross-referencing multiple manual sections, understanding visual content (diagrams, schematics, charts), and handling ambiguous questions that need clarification from the user.
+Each recorded fixture includes a domain-built visual, cited manual pages, and an expandable Proof Mode. The fixtures are clearly labeled "not generated for your setup" and derive their facts from the same deterministic domain functions used to validate live artifacts; they are not presented as live SDK output. This `build-no-key` mode is intentionally useful even when no Anthropic credential is available.
 
-### 2. Multimodal Responses
+If port 3000 is busy, use `PORT=3001 npm run dev` and open [http://localhost:3001](http://localhost:3001).
 
-This is the most important part. Your agent must not be text-only.
+## Enable live Claude answers
 
-- If someone asks about polarity setup, the agent should draw or show a diagram of which cable goes in which socket, not just describe it.
-- If the answer relates to a specific image in the manual (the wire feed mechanism, the front panel controls, the weld diagnosis examples), the agent should surface that image.
-- If a question is complex enough, the agent should generate interactive content: a duty cycle calculator, a troubleshooting flowchart, a settings configurator that takes process + material + thickness and outputs recommended wire speed and voltage.
-
-When something is too cognitively hard to explain in words, the agent should draw it. Real-time diagrams, interactive schematics, visual walkthroughs generated through code.
-
-For your agent to handle these responses well you need to reverse engineer Claude artifacts. Here are two places where you can start:
-- https://claude.ai/artifacts (see how Claude renders interactive artifacts in chat)
-- https://www.reidbarber.com/blog/reverse-engineering-claude-artifacts
-
-### 3. Tone and Helpfulness
-
-Imagine your user just bought this welder and is standing in their garage trying to set it up. They're not an idiot, but they're not a professional welder either.
-
-### 4. Knowledge Extraction Quality
-
-The manual has a mix of text, tables, labeled diagrams, schematics, and decision matrices. Some critical information exists only in images (the welding process selection chart, the weld diagnosis photos, the wiring schematic). We want to see that your agent understands and presents the visual content, not just the text.
-
-## Tech Requirements
-
-- Use the [Anthropic Claude Agent SDK](https://docs.anthropic.com) as the foundation for your agent.
-- The project must run locally with a single API key provided via `.env`.
-- You are responsible for your own API costs during development.
-
-## How to Present Your Work
-
-**This matters.** Your submission is not just the code — it's how you present it.
-
-- **Build a frontend.** The best way for us to evaluate your agent is if it has a clean, simple UI we can run immediately. This is realistically the only way to properly demo an agent like this.
-- **Hosting is a plus.** If you host it somewhere we can access without cloning, that's a strong signal. Not required, but it removes friction and shows initiative.
-- **Write a clear README.** Explain how your agent works, what design decisions you made, how knowledge is extracted and represented, and how to run it. Your documentation will be evaluated — we want to see how you think and communicate, not just how you code.
-- **Video walkthrough is a huge plus.** Record yourself demoing the agent and explaining your approach. Walk through the hard questions, show how it handles multimodal responses, explain your architecture. This gives us a much richer picture of your work than code alone.
-
-We should be running your agent within 2 minutes of cloning your repo:
+Live mode uses the Claude Agent SDK and can incur Anthropic API charges. Copy the example configuration, add one key, and restart the development server:
 
 ```bash
-git clone <your-fork>
-cd <your-fork>
-cp .env.example .env   # we plug in our own Anthropic API key
-# your install command (npm install, uv install, etc.)
-# your run command (npm run dev, python app.py, etc.)
+cp .env.example .env.local
 ```
 
-If it takes longer than that to set up, that's a problem.
+```dotenv
+ARCLENS_MODE=live-local
+ANTHROPIC_API_KEY=sk-ant-...
+```
 
-## What to Submit
+Then run `npm run doctor -- --mode live-local` followed by `npm run dev`. The header should show **Live · local**. Every live request is limited to eight turns and a maximum configured spend of USD 0.75; lower the cap with `ARCLENS_MAX_BUDGET_USD` if desired.
 
-1. Fork this repo.
-2. Build your solution.
-3. Submit your fork URL through the form at [useprox.com/join/challenge](https://useprox.com/join/challenge).
+See [Getting started](docs/getting-started.md) for expected output and a complete smoke test, or [Configuration](docs/configuration.md) for all modes and variables.
 
-## What Happens Next
+## What makes the answer trustworthy
 
-We review submissions on a rolling basis and respond to every single one within a few days. Good luck.
+ArcLens does not ask a model to improvise an answer and decorate it afterward. It narrows the agent to five in-process MCP tools, validates every source and artifact, recomputes critical facts in code, and commits the answer and visuals as one transaction.
+
+```text
+question
+   |
+   v
+Next.js /api/chat  -- validates request, mode, budget
+   |
+   v
+Claude Agent SDK   -- no built-in tools, five ArcLens MCP tools only
+   |
+   +--> verified manual search + page retrieval
+   +--> deterministic process-specific duty-cycle / polarity / porosity facts
+   +--> server-built visual artifacts
+   |
+   v
+grounding validator + request transaction
+   |
+   v
+one committed answer bundle: answer + artifacts + source IDs + checksum
+```
+
+The integration is the actual `@anthropic-ai/claude-agent-sdk`, not a hand-rolled chat completion:
+
+- `src/agent/runner.ts` calls the SDK `query()` async iterator.
+- `src/agent/tools.ts` creates a real in-process MCP server with `createSdkMcpServer()` and `tool()`.
+- `src/agent/options.ts` disables built-in tools and allowlists exactly five ArcLens MCP tools.
+- `src/domain/grounding.ts` rejects unknown sources, model-authored technical claims, and unattached computation receipts.
+- `src/domain/request-transaction.ts` prevents partial answers from reaching the UI.
+
+Read the [architecture contract](docs/architecture.md) for the implemented trust boundary and the explicitly marked future production boundary.
+
+## Assessment coverage
+
+| Requirement | Implemented evidence |
+| --- | --- |
+| Deep technical accuracy | Process-specific facts, unsupported-setting rejection, source-bound computation receipts, and offline regression cases |
+| Visual responses | Interactive duty-cycle timeline, polarity diagram, troubleshooting flow, exact manual crops, and full-PDF context |
+| Manual understanding | Checksummed page text/images plus a curated visual index for charts, diagrams, diagnosis examples, and the wiring schematic |
+| Claude Agent SDK | Real `query()` execution with five in-process MCP tools and no SDK built-ins |
+| Fast local evaluation | Two-command no-key start, three labeled Recorded Proof fixtures, and an optional one-key live-local mode |
+
+The assessment build deliberately does not claim image upload, voice, hosted multi-user chat, or expert authoring. Those require the production controls listed in [Architecture](docs/architecture.md#future-production-design-not-implemented-in-v01).
+
+## Commands
+
+| Command | Purpose | Network / API spend |
+| --- | --- | --- |
+| `npm run dev` | Start the app in the configured mode | No provider call until a live question is submitted |
+| `npm run doctor` | Load local config; check Node, mode spelling, key shape, lockfile, knowledge, SDK import, and port | None |
+| `npm run check:knowledge` | Verify committed manual assets and checksums | None |
+| `npm run build:knowledge` | Rebuild generated pages, crops, and indexes from the supplied PDFs | None; requires local PDF tools |
+| `npm run test` | Run the offline Vitest suite | None |
+| `npm run eval:offline` | Run the ten-case deterministic and retrieval eval set | None |
+| `npm run typecheck` | Run TypeScript without emitting files | None |
+| `npm run lint` | Run ESLint | None |
+| `npm run build` | Create a production Next.js build | None after install |
+| `npm run verify` | Run knowledge checks, types, lint, tests, and build | None after install |
+| `npm run help` | Print the operator command summary | None |
+
+The complete command and exit-code reference is in [Commands](docs/commands.md).
+
+## Verification
+
+Before review or release:
+
+```bash
+npm run verify
+npm run eval:offline
+node scripts/check-docs.mjs
+```
+
+The offline eval report is written to `evals/results/offline.json`. Live provider calls are deliberately not part of `npm run verify`; no test command should spend credits without an explicit operator action.
+
+## Repository map
+
+```text
+src/app/                 Next.js UI and API routes
+src/agent/               Claude Agent SDK options, runner, and MCP tools
+src/domain/              schemas, deterministic facts, grounding, transactions
+src/knowledge/           verified search index, manifest, and generated metadata
+src/security/            local asset allowlists, headers, and redaction
+public/manuals/          supplied source PDFs
+public/manual-pages/     generated page images
+public/manual-regions/   generated crops that enrich visual retrieval
+tests/                   offline unit, contract, security, API, and UI tests
+evals/                   versioned offline evaluation cases and reports
+scripts/                 doctor, knowledge build/check, docs check, eval runner
+docs/                    product, architecture, security, testing, and operations
+```
+
+## Documentation
+
+- Start here: [Getting started](docs/getting-started.md)
+- Operate it: [Commands](docs/commands.md), [Configuration](docs/configuration.md), [Error reference](docs/errors.md)
+- Understand it: [Architecture](docs/architecture.md), [Security posture](docs/security.md), [UI design contract (implemented and planned flows)](docs/designs/arclens-ui-spec.md)
+- Validate it: [Test plan](docs/test-plan.md), [Release checklist](docs/release-checklist.md), [Demo script](docs/demo-script.md)
+- Maintain it: [Knowledge build guide](docs/how-to-maintain-knowledge.md), [Contributing](CONTRIBUTING.md), [Security policy](SECURITY.md), [Changelog](CHANGELOG.md)
+- Review the design process: [Assessment](docs/designs/arclens-assessment.md) and [developer-experience contract](docs/developer-experience.md)
+
+## Troubleshooting
+
+- **Wrong Node version:** run `nvm use`, `fnm use 24`, or install Node 24, then rerun `npm ci`.
+- **Port already in use:** run `PORT=3001 npm run doctor`, then `PORT=3001 npm run dev`.
+- **Live answers unavailable:** ensure `.env.local` contains both `ARCLENS_MODE=live-local` and a valid `ANTHROPIC_API_KEY`, then restart.
+- **Knowledge validation failed:** run `npm run build:knowledge`, inspect the generated diff, then rerun `npm run check:knowledge`.
+- **A live answer was rejected:** this is a fail-closed result, not a partial success. Use the error code and request ID with the [error reference](docs/errors.md).
+
+For contribution workflow and review expectations, see [CONTRIBUTING.md](CONTRIBUTING.md). To report a vulnerability privately, follow [SECURITY.md](SECURITY.md).

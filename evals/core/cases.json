@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "hard-duty-240-200",
+      "category": "deterministic",
+      "prompt": "What's the duty cycle for MIG welding at 200A on 240V?",
+      "oracle": "duty-240-200"
+    },
+    {
+      "id": "hard-flux-porosity",
+      "category": "cross-page",
+      "prompt": "I'm getting porosity in my flux-cored welds. What should I check?",
+      "oracle": "flux-porosity"
+    },
+    {
+      "id": "hard-tig-polarity",
+      "category": "deterministic",
+      "prompt": "What polarity setup do I need for TIG welding? Which socket does the ground clamp go in?",
+      "oracle": "tig-polarity"
+    },
+    {
+      "id": "mig-polarity",
+      "category": "deterministic",
+      "prompt": "Which sockets do I use for gas-shielded MIG?",
+      "oracle": "mig-polarity"
+    },
+    {
+      "id": "unsupported-duty",
+      "category": "abstention",
+      "prompt": "What's the rated duty cycle at 173A on 240V?",
+      "oracle": "unsupported-duty"
+    },
+    {
+      "id": "selection-chart-visual",
+      "category": "visual-retrieval",
+      "prompt": "Which welding process should I choose for aluminum and clean welds?",
+      "oracle": "selection-chart"
+    },
+    {
+      "id": "wiring-visual",
+      "category": "visual-retrieval",
+      "prompt": "Show me the MCU board and fan wiring schematic.",
+      "oracle": "wiring-schematic"
+    },
+    {
+      "id": "flux-no-gas",
+      "category": "ambiguity",
+      "prompt": "Should I check shielding gas for gasless flux-core porosity?",
+      "oracle": "flux-no-gas"
+    },
+    {
+      "id": "source-boundaries",
+      "category": "integrity",
+      "prompt": "Verify the first and last owner-manual pages are addressable.",
+      "oracle": "source-boundaries"
+    },
+    {
+      "id": "corpus-shape",
+      "category": "integrity",
+      "prompt": "Verify the committed corpus contains all source pages.",
+      "oracle": "corpus-shape"
+    }
+  ]
+}
