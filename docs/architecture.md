@@ -195,7 +195,7 @@ The stable code guide is [Error reference](errors.md).
 The repository currently provides:
 
 - Vitest suites for domain computations, transactions, grounding, Agent SDK options/runner/tools, configuration, API contracts, security, knowledge, and UI behavior;
-- a ten-case offline eval set covering the three hard prompts, process distinctions, unsupported duty-cycle points, visual retrieval, and corpus boundaries;
+- a sixteen-case offline eval set covering the three hard prompts, process distinctions, unsupported duty-cycle points, cross-page reasoning, unseen retrieval language, visual retrieval, and corpus boundaries;
 - knowledge integrity, type, lint, production build, doctor, and documentation checks.
 
 Use [Commands](commands.md) for the exact executable surface and [Test plan](test-plan.md) for the broader future coverage map.

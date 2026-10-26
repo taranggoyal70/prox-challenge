@@ -142,9 +142,39 @@ function runOracle(oracle: string): string {
       assert(knowledgeManifest.pages.length === 51, "expected 51 total PDF pages");
       assert(knowledgeManifest.documents.length === 3, "expected three source documents");
       return "51 pages across three source documents";
+    case "process-specific-175a": {
+      const tig = calculateDutyCycle({ process: "tig", inputVoltage: 240, amperage: 175 });
+      const stick = calculateDutyCycle({ process: "stick", inputVoltage: 240, amperage: 175 });
+      assert(tig.ratedPercent === 30, "expected TIG 30% at 175A/240V");
+      assert(stick.ratedPercent === 25, "expected stick 25% at 175A/240V");
+      return "TIG 30% vs stick 25%; process context changes the answer";
+    }
+    case "wire-no-arc":
+      return assertRetrieved("why does wire feed but arc not ignite", "owner-manual:pdf-43");
+    case "porosity-natural":
+      return assertRetrieved("porosity in weld metal likely solutions", "owner-manual:pdf-43");
+    case "generator-specs":
+      return assertRetrieved("what size generator do I need input current", "owner-manual:pdf-7");
+    case "spool-gun":
+      return assertRetrieved("how do I attach spool gun aluminum", "owner-manual:pdf-17");
+    case "cross-page-penetration": {
+      const wireIds = searchManual("wire weld penetration workpiece heat control", { limit: 5 })
+        .map((hit) => hit.source.id);
+      const stickIds = searchManual("stick weld diagnosis workpiece heat control penetration", { limit: 5 })
+        .map((hit) => hit.source.id);
+      assert(wireIds.includes("owner-manual:pdf-36"), "expected wire penetration page 36");
+      assert(stickIds.includes("owner-manual:pdf-38"), "expected stick diagnosis page 38");
+      return "wire page 36 and stick page 38 both retrieved";
+    }
     default:
       throw new Error(`unknown oracle ${oracle}`);
   }
+}
+
+function assertRetrieved(query: string, sourceId: string): string {
+  const ids = searchManual(query, { limit: 5 }).map((hit) => hit.source.id);
+  assert(ids.includes(sourceId), `expected ${sourceId} in top five, got ${ids.join(", ")}`);
+  return `${sourceId} retrieved at rank ${ids.indexOf(sourceId) + 1}`;
 }
 
 function assert(condition: unknown, message: string): asserts condition {

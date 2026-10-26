@@ -1,13 +1,13 @@
 {
   "version": 1,
   "suite": "offline-core",
-  "casesVersion": 1,
+  "casesVersion": 2,
   "corpusVersion": "14c0b1eb5c7ac795",
-  "startedAt": "2026-10-26T09:42:16.280Z",
-  "completedAt": "2026-10-26T09:42:16.311Z",
+  "startedAt": "2026-10-26T10:30:52.158Z",
+  "completedAt": "2026-10-26T10:30:52.257Z",
   "summary": {
-    "total": 10,
-    "passed": 10,
+    "total": 16,
+    "passed": 16,
     "failed": 0,
     "passRate": 1
   },
@@ -71,6 +71,42 @@
       "category": "integrity",
       "pass": true,
       "details": "51 pages across three source documents"
+    },
+    {
+      "id": "process-specific-175a",
+      "category": "deterministic",
+      "pass": true,
+      "details": "TIG 30% vs stick 25%; process context changes the answer"
+    },
+    {
+      "id": "wire-feeds-no-arc",
+      "category": "retrieval-holdout",
+      "pass": true,
+      "details": "owner-manual:pdf-43 retrieved at rank 1"
+    },
+    {
+      "id": "porosity-natural-language",
+      "category": "retrieval-holdout",
+      "pass": true,
+      "details": "owner-manual:pdf-43 retrieved at rank 1"
+    },
+    {
+      "id": "generator-input-current",
+      "category": "retrieval-holdout",
+      "pass": true,
+      "details": "owner-manual:pdf-7 retrieved at rank 1"
+    },
+    {
+      "id": "spool-gun-aluminum-setup",
+      "category": "retrieval-holdout",
+      "pass": true,
+      "details": "owner-manual:pdf-17 retrieved at rank 3"
+    },
+    {
+      "id": "cross-page-penetration",
+      "category": "cross-page",
+      "pass": true,
+      "details": "wire page 36 and stick page 38 both retrieved"
     }
   ]
 }

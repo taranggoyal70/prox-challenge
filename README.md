@@ -4,6 +4,8 @@ ArcLens is a source-grounded visual product expert for the Vulcan OmniPro 220. I
 
 The default experience needs no API key and makes no provider calls. It opens a complete Recorded Proof of the three challenge flows so an evaluator can inspect the product immediately.
 
+![ArcLens guided flux-core porosity diagnosis](docs/assets/arclens-porosity-flow.png)
+
 ## Run it in two commands
 
 Requirements: Node.js 24 and npm 11. The repository pins Node `24.10.0` in `.nvmrc`.
@@ -69,7 +71,7 @@ The integration is the actual `@anthropic-ai/claude-agent-sdk`, not a hand-rolle
 - `src/agent/runner.ts` calls the SDK `query()` async iterator.
 - `src/agent/tools.ts` creates a real in-process MCP server with `createSdkMcpServer()` and `tool()`.
 - `src/agent/options.ts` disables built-in tools and allowlists exactly five ArcLens MCP tools.
-- `src/domain/grounding.ts` rejects unknown sources, model-authored technical claims, and unattached computation receipts.
+- `src/domain/grounding.ts` rejects unknown sources, unverified technical claims, context-free quote fragments, and unattached computation receipts.
 - `src/domain/request-transaction.ts` prevents partial answers from reaching the UI.
 
 Read the [architecture contract](docs/architecture.md) for the implemented trust boundary and the explicitly marked future production boundary.
@@ -95,7 +97,7 @@ The assessment build deliberately does not claim image upload, voice, hosted mul
 | `npm run check:knowledge` | Verify committed manual assets and checksums | None |
 | `npm run build:knowledge` | Rebuild generated pages, crops, and indexes from the supplied PDFs | None; requires local PDF tools |
 | `npm run test` | Run the offline Vitest suite | None |
-| `npm run eval:offline` | Run the ten-case deterministic and retrieval eval set | None |
+| `npm run eval:offline` | Run the sixteen-case deterministic, cross-page, and retrieval holdout set | None |
 | `npm run typecheck` | Run TypeScript without emitting files | None |
 | `npm run lint` | Run ESLint | None |
 | `npm run build` | Create a production Next.js build | None after install |

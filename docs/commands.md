@@ -14,7 +14,7 @@ Creates a production Next.js build. It performs no provider generation after dep
 
 ### `npm run start`
 
-Starts the previously built production server. Run `npm run build` first.
+Starts the prepared standalone production server. Run `npm run build` first; set `PORT=3001` when the default port is occupied.
 
 ## Diagnostics
 

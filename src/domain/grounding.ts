@@ -10,6 +10,7 @@ export type GroundingContext = {
   artifacts: Artifact[];
   getSource(id: string): unknown | undefined;
   getPageText(id: string): string | undefined;
+  isSafetySource?(id: string): boolean;
 };
 
 type GroundedArtifact = {
@@ -21,6 +22,8 @@ type GroundedArtifact = {
 
 const technicalProse =
   /\b(?:dcen|dcep|positive|negative|polarity|socket)\b|\b\d+(?:\.\d+)?\s*(?:a|v|%|minutes?)\b/i;
+const safetyProse =
+  /\b(?:electric shock|fire|explosion|disconnect|unplug|power off|power switch off|warning|caution|hazard|kill|serious injury)\b/i;
 
 export function groundAnswerEnvelope(
   input: AnswerEnvelope,
@@ -28,12 +31,7 @@ export function groundAnswerEnvelope(
 ): AnswerEnvelope {
   const envelope = answerEnvelopeSchema.parse(input);
   if (envelope.kind === "clarification") {
-    return {
-      kind: "clarification",
-      question: "Which welding process and input voltage are you using?",
-      reason: "Those setup details can change the documented answer.",
-      choices: ["MIG", "Flux-core", "TIG", "Stick", "I’m not sure"],
-    };
+    return safeClarification(envelope);
   }
   if (envelope.kind === "abstention") {
     return {
@@ -87,48 +85,52 @@ export function groundAnswerEnvelope(
       );
     }
     if (claim.kind === "prose") validateExtractiveEvidence(claim, context);
+    if (claim.kind === "fact" || claim.kind === "procedure") {
+      throw groundingError(
+        "GROUNDING_CLAIM_UNVERIFIED",
+        `Structured ${claim.kind} claims are not backed by a server computation receipt.`,
+        "Use an exact prose evidence span or a deterministic ArcLens artifact.",
+      );
+    }
   }
+
+  const proseClaims = envelope.claims.filter(
+    (claim): claim is Extract<Claim, { kind: "prose" }> => claim.kind === "prose",
+  );
 
   const deterministic = selectedArtifacts
     .map(groundArtifact)
     .filter((value): value is GroundedArtifact => value !== null);
 
   if (deterministic.length > 0) {
-    const sourceIds = [
-      ...new Set(selectedArtifacts.flatMap((artifact) => artifact.sourceIds)),
-    ];
+    const sourceIds = [...new Set([
+      ...selectedArtifacts.flatMap((artifact) => artifact.sourceIds),
+      ...proseClaims.flatMap((claim) => claim.sourceIds),
+    ])];
     for (const sourceId of sourceIds) requireSource(sourceId, context);
     const claims = deterministic
       .map((value) => value.claim)
-      .filter((value): value is Claim => value !== null);
+      .filter((value): value is Claim => value !== null)
+      .concat(proseClaims);
+    const summaries = deterministic.map((value) => value.summary);
+    const deterministicLength = summaries.join(" ").length;
+    if (proseClaims.length) {
+      summaries.push(evidenceSummary(proseClaims, context, Math.max(80, 1180 - deterministicLength)));
+    }
 
     return answerEnvelopeSchema.parse({
       kind: "answer",
-      summary: deterministic.map((value) => value.summary).join(" "),
+      summary: summaries.join(" "),
       claims,
       artifactIds: selectedArtifacts.map((artifact) => artifact.id),
       sourceIds,
-      hazardLevel: highestHazard(deterministic.map((value) => value.hazardLevel)),
+      hazardLevel: highestHazard([
+        ...deterministic.map((value) => value.hazardLevel),
+        ...proseClaims.map((claim) => proseHazard(claim, context)),
+      ]),
     });
   }
 
-  if (
-    envelope.claims.some((claim) => claim.kind !== "prose") ||
-    technicalProse.test(envelope.summary) ||
-    envelope.claims.some(
-      (claim) => claim.kind === "prose" && technicalProse.test(claim.text),
-    )
-  ) {
-    throw groundingError(
-      "GROUNDING_ARTIFACT_REQUIRED",
-      "The answer contains deterministic technical claims without a server-computed artifact.",
-      "Use get_product_fact and present_artifact, then submit the validated receipt.",
-    );
-  }
-
-  const proseClaims = envelope.claims.filter(
-    (claim): claim is Extract<Claim, { kind: "prose" }> => claim.kind === "prose",
-  );
   if (proseClaims.length !== envelope.claims.length || proseClaims.length === 0) {
     throw groundingError(
       "GROUNDING_EVIDENCE_REQUIRED",
@@ -139,31 +141,178 @@ export function groundAnswerEnvelope(
 
   return answerEnvelopeSchema.parse({
     ...envelope,
-    summary: proseClaims.map((claim) => claim.text).join(" "),
+    summary: evidenceSummary(proseClaims, context),
+    hazardLevel: highestHazard(proseClaims.map((claim) => proseHazard(claim, context))),
   });
+}
+
+function safeClarification(
+  envelope: Extract<AnswerEnvelope, { kind: "clarification" }>,
+): Extract<AnswerEnvelope, { kind: "clarification" }> {
+  const requested = `${envelope.question} ${envelope.reason}`.toLowerCase();
+  if (/wire (?:diameter|size)|diameter.*wire/.test(requested)) {
+    return {
+      kind: "clarification",
+      question: "What wire diameter are you using?",
+      reason: "Wire diameter changes the documented feed and setup guidance.",
+      choices: ["0.025 in", "0.030 in", "0.035 in", "0.045 in", "I’m not sure"],
+    };
+  }
+  if (/electrode|rod/.test(requested)) {
+    return {
+      kind: "clarification",
+      question: "Which electrode type and diameter are you using?",
+      reason: "Electrode type and diameter change the documented setup guidance.",
+    };
+  }
+  if (/material|thickness|aluminum|steel/.test(requested)) {
+    return {
+      kind: "clarification",
+      question: "What material and thickness are you welding?",
+      reason: "Material and thickness determine which documented process and settings apply.",
+    };
+  }
+  if (/shielding gas|gas type|gas mixture/.test(requested)) {
+    return {
+      kind: "clarification",
+      question: "Which shielding gas, if any, are you using?",
+      reason: "Gas requirements differ between MIG and self-shielded flux-core setups.",
+    };
+  }
+  if (/voltage|120\s*v|240\s*v|input/.test(requested)) {
+    return {
+      kind: "clarification",
+      question: "Is the welder connected to 120 V or 240 V input power?",
+      reason: "The documented output and duty-cycle ratings change with input voltage.",
+      choices: ["120 V", "240 V", "I’m not sure"],
+    };
+  }
+  if (/process|mig|flux|tig|stick/.test(requested)) {
+    return {
+      kind: "clarification",
+      question: "Which welding process are you using?",
+      reason: "Polarity, connections, and troubleshooting steps differ by process.",
+      choices: ["MIG", "Flux-core", "TIG", "Stick", "I’m not sure"],
+    };
+  }
+  return {
+    kind: "clarification",
+    question: "What setup detail or symptom can you confirm before ArcLens continues?",
+    reason: "The verified manuals do not support one reliable answer without that context.",
+  };
 }
 
 function validateExtractiveEvidence(
   claim: Extract<Claim, { kind: "prose" }>,
   context: GroundingContext,
 ): void {
+  if (
+    claim.sourceIds.length !== 1 ||
+    claim.evidence.length !== 1 ||
+    claim.evidence[0]?.sourceId !== claim.sourceIds[0]
+  ) {
+    throw groundingError(
+      "GROUNDING_EVIDENCE_AMBIGUOUS",
+      "Each prose claim must bind to exactly one evidence quote from exactly one source.",
+      "Split cross-page evidence into one prose claim per source.",
+    );
+  }
   const normalizedClaim = normalizeEvidence(claim.text);
+  let exactButTooShort = false;
   const supported = claim.evidence.some((evidence) => {
     if (!claim.sourceIds.includes(evidence.sourceId)) return false;
     const pageText = context.getPageText(evidence.sourceId);
     if (!pageText) return false;
     const normalizedQuote = normalizeEvidence(evidence.quote);
-    return (
-      normalizeEvidence(pageText).includes(normalizedQuote) &&
-      normalizedQuote === normalizedClaim
-    );
+    const normalizedPage = normalizeEvidence(pageText);
+    const quoteIndex = normalizedPage.indexOf(normalizedQuote);
+    const exact = quoteIndex >= 0 && normalizedQuote === normalizedClaim;
+    if (!exact) return false;
+    const tokenCount = normalizedClaim.split(" ").length;
+    const contextualSentence =
+      normalizedClaim.length >= 32 &&
+      tokenCount >= 6 &&
+      /[.!?:;]$/.test(normalizedClaim);
+    const exactPhysicalLine = pageText
+      .split(/\r?\n/)
+      .some((line) => normalizeEvidence(line) === normalizedQuote);
+    const completeTableRow =
+      evidence.sourceId === "owner-manual:pdf-7" &&
+      exactPhysicalLine &&
+      normalizedClaim.length >= 20 &&
+      tokenCount >= 4 &&
+      /\d/.test(normalizedClaim) &&
+      /\b(?:a|v|vac|ipm|%|kva|ocv)\b/i.test(normalizedClaim);
+    const previous = quoteIndex > 0
+      ? normalizedPage.slice(0, quoteIndex).trimEnd().at(-1)
+      : undefined;
+    const quoteEnd = quoteIndex + normalizedQuote.length;
+    const next = quoteEnd < normalizedPage.length
+      ? normalizedPage.slice(quoteEnd).trimStart()[0]
+      : undefined;
+    const startsAtBoundary = previous === undefined || /[.!?:;]/.test(previous);
+    const endsAtBoundary =
+      next === undefined ||
+      /[.!?:;]/.test(next) ||
+      /[.!?:;]/.test(normalizedQuote.at(-1) ?? "");
+    const boundedSentence = contextualSentence && startsAtBoundary && endsAtBoundary;
+    if (!boundedSentence && !completeTableRow) exactButTooShort = true;
+    return boundedSentence || completeTableRow;
   });
   if (supported) return;
+  if (exactButTooShort) {
+    throw groundingError(
+      "GROUNDING_EVIDENCE_SPAN_TOO_SHORT",
+      "The evidence span is too short to preserve its condition, negation, and surrounding meaning.",
+      "Quote a complete manual sentence, or a complete numeric table row with its unit.",
+    );
+  }
   throw groundingError(
     "GROUNDING_QUOTE_MISMATCH",
     `Prose claim “${claim.text.slice(0, 120)}” is not contained in an exact verified-manual quote.`,
     "Copy a short exact excerpt returned by get_manual_pages and keep the claim extractive.",
   );
+}
+
+function evidenceSummary(
+  claims: Array<Extract<Claim, { kind: "prose" }>>,
+  context: GroundingContext,
+  maxLength = 1150,
+): string {
+  const excerpts = claims.map((claim) => {
+    const sourceId = claim.sourceIds[0];
+    const source = context.getSource(sourceId) as
+      | { documentTitle?: string; pdfPageNumber?: number }
+      | undefined;
+    const label = source?.documentTitle && source.pdfPageNumber
+      ? `${source.documentTitle}, PDF page ${source.pdfPageNumber}`
+      : sourceId;
+    return `${label}: “${claim.text}”`;
+  });
+  let summary = "Verified manual evidence";
+  for (const excerpt of excerpts) {
+    const candidate = `${summary}${summary.endsWith("evidence") ? " — " : " "}${excerpt}`;
+    if (candidate.length > maxLength) {
+      const fallback = "Verified manual evidence is attached to the cited source.";
+      if (summary === "Verified manual evidence") return fallback.slice(0, maxLength);
+      const suffix = " Additional verified evidence is attached.";
+      if (summary.length + suffix.length <= maxLength) summary += suffix;
+      break;
+    }
+    summary = candidate;
+  }
+  return summary;
+}
+
+function proseHazard(
+  claim: Extract<Claim, { kind: "prose" }>,
+  context: GroundingContext,
+): "none" | "reminder" | "caution" | "stop" {
+  if (/\b(?:kill|death|to prevent serious injury)\b/i.test(claim.text)) return "stop";
+  if (safetyProse.test(claim.text) || claim.sourceIds.some((id) => context.isSafetySource?.(id))) {
+    return "caution";
+  }
+  return technicalProse.test(claim.text) ? "reminder" : "none";
 }
 
 function normalizeEvidence(value: string): string {

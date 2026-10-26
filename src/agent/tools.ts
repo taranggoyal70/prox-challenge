@@ -20,6 +20,7 @@ export type KnowledgeGateway = {
   searchManual(query: string, options?: { limit?: number }): SearchHit[];
   getSource(id: string): SourceRef | undefined;
   getPageText(id: string): string | undefined;
+  isSafetySource?(id: string): boolean;
 };
 
 type SearchInput = { query: string; limit?: number };
@@ -97,6 +98,7 @@ export function createArcLensToolHandlers(input: {
         artifacts: input.transaction.stagedArtifacts,
         getSource: input.knowledge.getSource,
         getPageText: input.knowledge.getPageText,
+        isSafetySource: input.knowledge.isSafetySource,
       });
       input.transaction.submitAnswer(grounded);
       return { accepted: true as const, kind: grounded.kind };
@@ -147,7 +149,7 @@ export function createArcLensMcpServer(input: {
       ),
       tool(
         "get_manual_pages",
-        "Resolve source IDs to canonical page metadata and local visual assets.",
+        "Resolve up to four source IDs to canonical page metadata, local visual assets, and bounded verified page text for exact evidence quotes.",
         { sourceIds: z.array(z.string().min(1)).min(1).max(4) },
         async (args) => mcpContent(handlers.getManualPages(args)),
       ),

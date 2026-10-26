@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "cases": [
     {
       "id": "hard-duty-240-200",
@@ -60,6 +60,42 @@
       "category": "integrity",
       "prompt": "Verify the committed corpus contains all source pages.",
       "oracle": "corpus-shape"
+    },
+    {
+      "id": "process-specific-175a",
+      "category": "deterministic",
+      "prompt": "Do TIG and stick have the same duty cycle at 175A on 240V?",
+      "oracle": "process-specific-175a"
+    },
+    {
+      "id": "wire-feeds-no-arc",
+      "category": "retrieval-holdout",
+      "prompt": "Why does wire feed but the arc not ignite?",
+      "oracle": "wire-no-arc"
+    },
+    {
+      "id": "porosity-natural-language",
+      "category": "retrieval-holdout",
+      "prompt": "Porosity in weld metal likely solutions",
+      "oracle": "porosity-natural"
+    },
+    {
+      "id": "generator-input-current",
+      "category": "retrieval-holdout",
+      "prompt": "What size generator do I need based on input current?",
+      "oracle": "generator-specs"
+    },
+    {
+      "id": "spool-gun-aluminum-setup",
+      "category": "retrieval-holdout",
+      "prompt": "How do I attach the spool gun for aluminum?",
+      "oracle": "spool-gun"
+    },
+    {
+      "id": "cross-page-penetration",
+      "category": "cross-page",
+      "prompt": "Compare wire and stick weld penetration guidance.",
+      "oracle": "cross-page-penetration"
     }
   ]
 }

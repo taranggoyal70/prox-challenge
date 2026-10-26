@@ -118,17 +118,25 @@ The answer references an artifact that was not built in this request.
 
 A calculation cites a computation receipt not attached to a staged deterministic artifact.
 
-### `GROUNDING_ARTIFACT_REQUIRED`
+### `GROUNDING_CLAIM_UNVERIFIED`
 
-Technical prose or a deterministic claim was submitted without a server-computed artifact. The agent must use the fact and artifact tools before submitting.
+A structured fact or procedure claim was submitted without a server computation receipt. The agent must use a deterministic artifact or an exact verified manual evidence span.
 
 ### `GROUNDING_EVIDENCE_REQUIRED`
 
 A prose-only answer did not include an exact excerpt for every claim. The agent must call `get_manual_pages` and attach verified evidence.
 
+### `GROUNDING_EVIDENCE_AMBIGUOUS`
+
+A prose claim attempted to bind one statement to multiple sources or quotes. Split cross-page evidence into one exact prose claim per source so the displayed attribution cannot drift.
+
 ### `GROUNDING_QUOTE_MISMATCH`
 
 The submitted evidence quote was not present in the referenced page text or did not contain the extractive claim. The answer is rejected rather than published with approximate evidence.
+
+### `GROUNDING_EVIDENCE_SPAN_TOO_SHORT`
+
+An exact quote was too short to preserve its condition, negation, or surrounding meaning. Submit a complete punctuated sentence, or a complete numeric table row that exactly matches one physical line on the trusted specifications page and includes its unit.
 
 ## Transaction failures
 

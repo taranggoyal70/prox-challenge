@@ -1,4 +1,4 @@
-# Five-minute demo script
+# Three-minute demo script
 
 This script presents the strongest evaluator journey without depending on an API key. Keep a terminal and browser side by side.
 
@@ -12,7 +12,7 @@ npm run doctor
 
 Point out Node 24, committed knowledge integrity, the real Agent SDK import, and the no-key mode. Then run `npm run dev` and open the local URL.
 
-## 0:45 — Explain the product promise
+## 0:25 — Explain the product promise
 
 Use this framing:
 
@@ -20,7 +20,7 @@ Use this framing:
 
 Show the **Recorded proof** mode badge, the disabled live-question field, and the explicit "not generated for your setup" fixture banner. Mention that live mode is one environment variable plus one Anthropic key.
 
-## 1:15 — Demonstrate deterministic duty cycle
+## 0:50 — Demonstrate deterministic duty cycle
 
 Select "What's the duty cycle for MIG welding at 200A on 240V?"
 
@@ -30,23 +30,23 @@ Show:
 - 2.5 minutes welding and 7.5 minutes resting in a ten-minute period;
 - the timeline artifact;
 - the owner manual page 19 citation;
-- Proof Mode, its page-level source metadata, and the original PDF link.
+- Proof Mode, its exact curated chart region, and the original full-page PDF link.
 
 Explain that the recorded fixture calls the deterministic duty-cycle function directly, while the live path uses `get_product_fact` and the artifact builder. The 200 A / 240 V result is the MIG/wire-mode rating from page 19; TIG and stick have different process-specific ratings on page 29.
 
-## 2:15 — Demonstrate polarity clarity
+## 1:25 — Demonstrate guided troubleshooting
 
 Select "I'm getting porosity in my flux-cored welds. What should I check?"
 
 Show the ordered diagnostic flow. It starts with the process-specific DCEN polarity, then covers contamination, travel speed, contact-tip-to-work distance, and wire condition. Open the page 13 or page 37 evidence. Explain that shielding-gas checks apply to MIG, not gasless flux-core.
 
-## 3:00 — Demonstrate guided troubleshooting
+## 2:00 — Demonstrate polarity clarity
 
 Select "What polarity setup do I need for TIG welding? Which socket does the ground clamp go in?"
 
 Show the DCEN polarity diagram: ground clamp to positive, TIG torch cable to negative, sourced to owner manual page 24. Open Proof Mode and show the exact curated region, its normalized region provenance, and the separate link to full-page context in the original PDF.
 
-## 3:45 — Prove the Agent SDK boundary
+## 2:30 — Prove the Agent SDK boundary
 
 Open these files or describe them from the README:
 
@@ -58,7 +58,7 @@ Open these files or describe them from the README:
 
 Summarize the key distinction: the UI renders the committed transaction, never the SDK's free-form result text.
 
-## 4:30 — Close with verification
+## 2:50 — Close with verification
 
 Show the commands, without waiting for the full production build during a short demo:
 

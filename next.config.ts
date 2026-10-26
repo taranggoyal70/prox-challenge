@@ -6,6 +6,10 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
   serverExternalPackages: ["@anthropic-ai/claude-agent-sdk", "sharp"],
+  outputFileTracingIncludes: {
+    "/api/ready": ["./files/**/*", "./public/manuals/**/*", "./public/manual-pages/**/*", "./public/manual-regions/**/*"],
+    "/api/chat": ["./files/**/*", "./public/manuals/**/*", "./public/manual-pages/**/*", "./public/manual-regions/**/*"],
+  },
   turbopack: {
     root: process.cwd(),
   },

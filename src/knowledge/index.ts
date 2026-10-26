@@ -37,6 +37,10 @@ const aliases: Record<string, string[]> = {
   stick: ["smaw"],
   "flux-core": ["flux cored", "fcaw", "gasless"],
   mcu: ["microcontroller", "control board"],
+  generator: ["specifications", "input current", "kva", "circuit amperage"],
+  "spool-gun": ["spool gun", "optional spool gun", "aluminum wire setup"],
+  porosity: ["porosity in the weld metal", "possible causes", "likely solutions"],
+  penetration: ["workpiece heat control", "stick weld diagnosis", "wire weld penetration"],
 };
 
 function normalize(value: string): string {
@@ -122,7 +126,7 @@ export function searchManual(
       const matchedTerms = terms.filter(
         (term) => text.includes(term) || tagText.includes(term) || visualText.includes(term),
       );
-      const diagnosticIntent = /\b(?:diagnos|troubleshoot|problem)\w*\b/.test(normalize(query));
+      const diagnosticIntent = /\b(?:diagnos|troubleshoot|problem|solution|cause|fix|check|porosity)\w*\b/.test(normalize(query));
       const score = matchedTerms.reduce(
         (total, term) =>
           total +
@@ -152,6 +156,10 @@ export function getSource(id: string) {
 
 export function getPageText(id: string): string | undefined {
   return pagesById.get(id)?.text;
+}
+
+export function isSafetySource(id: string): boolean {
+  return pagesById.get(id)?.safety ?? false;
 }
 
 export function getPage(

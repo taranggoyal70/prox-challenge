@@ -9,7 +9,7 @@ import { executeAgentTurn, prepareAgentExecution } from "@/agent/runner";
 import { loadConfig } from "@/config";
 import { agentEventSchema, type AgentEvent } from "@/domain/agent-event";
 import { ArcLensError } from "@/domain/errors";
-import { getPageText, getSource, searchManual } from "@/knowledge";
+import { getPageText, getSource, isSafetySource, searchManual } from "@/knowledge";
 
 const requestSchema = z.object({
   question: z.string().trim().min(2).max(4_000),
@@ -122,7 +122,7 @@ export async function POST(request: Request) {
         const execution = prepareAgentExecution({
           config,
           cwd,
-          knowledge: { searchManual, getSource, getPageText },
+          knowledge: { searchManual, getSource, getPageText, isSafetySource },
           requestId,
           resumeSessionId: sessions.get(conversationId),
         });

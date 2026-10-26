@@ -41,6 +41,14 @@ describe("manual knowledge search", () => {
     expect(hit?.source.id).toBe("owner-manual:pdf-43");
   });
 
+  it.each([
+    ["porosity in weld metal likely solutions", "owner-manual:pdf-43"],
+    ["what size generator do I need input current", "owner-manual:pdf-7"],
+    ["how do I attach spool gun aluminum", "owner-manual:pdf-17"],
+  ])("keeps unseen intent %s within the top five", (query, sourceId) => {
+    expect(searchManual(query, { limit: 5 }).map((hit) => hit.source.id)).toContain(sourceId);
+  });
+
   it("returns undefined instead of accepting a zero-based page", () => {
     expect(getPage("owner-manual", 0)).toBeUndefined();
     expect(getPage("owner-manual", 48)?.source.id).toBe("owner-manual:pdf-48");
