@@ -97,7 +97,8 @@ export async function POST(request: Request) {
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream<Uint8Array>({
-    async start(controller) {
+    start(controller) {
+      void (async () => {
       let seq = 0;
       const emit = (event: AgentEventPayload) => {
         const parsed = agentEventSchema.parse({
@@ -113,10 +114,11 @@ export async function POST(request: Request) {
       emit({ type: "status", phase: "checking_context" });
       emit({ type: "status", phase: "finding_evidence" });
 
-      const cwd = await mkdtemp(join(tmpdir(), "arclens-agent-"));
       const timeoutSignal = AbortSignal.timeout(agentTimeoutMs);
       const executionSignal = AbortSignal.any([request.signal, timeoutSignal]);
+      let cwd: string | undefined;
       try {
+        cwd = await mkdtemp(join(tmpdir(), "arclens-agent-"));
         const execution = prepareAgentExecution({
           config,
           cwd,
@@ -158,10 +160,11 @@ export async function POST(request: Request) {
         });
         else emit({ type: "error", error: asArcLensError(error).toJSON() });
       } finally {
-        await rm(cwd, { recursive: true, force: true });
+        if (cwd) await rm(cwd, { recursive: true, force: true });
         activeConversations.delete(conversationId);
         controller.close();
       }
+      })();
     },
   });
 

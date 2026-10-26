@@ -9,6 +9,7 @@ test-results/
 .env.*.local
 .DS_Store
 .gstack/
+*.review.*/
 *.log
 *.tsbuildinfo
 *.sqlite
