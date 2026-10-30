@@ -4,6 +4,8 @@ ArcLens is a source-grounded visual product expert for the Vulcan OmniPro 220. I
 
 The default experience needs no API key and makes no provider calls. It opens a complete Recorded Proof of the three challenge flows so an evaluator can inspect the product immediately.
 
+**Hosted evaluation:** [Open ArcLens on Vercel](https://arclens-omnipro.vercel.app)
+
 ![ArcLens guided flux-core porosity diagnosis](docs/assets/arclens-porosity-flow.png)
 
 ## Run it in two commands
