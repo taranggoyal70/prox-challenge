@@ -41,10 +41,9 @@ describe("OwnerWorkspace", () => {
     expect(screen.getByRole("dialog", { name: "Manual evidence" })).toBeVisible();
     expect(screen.getByText("Owner's Manual · PDF page 19")).toBeVisible();
     expect(screen.getByText("Manual evidence · exact region")).toBeVisible();
-    expect(screen.getByAltText("Manual region 19: Duty Cycle (Duration of Use)")).toHaveAttribute(
-      "src",
-      expect.stringContaining("owner-manual-pdf-19-duty-cycle"),
-    );
+    expect(screen.getByRole("img", {
+      name: "Manual region 19: Duty Cycle (Duration of Use)",
+    })).toBeVisible();
   });
 
   it("keeps Proof Mode keyboard focus contained and restores it on Escape", () => {

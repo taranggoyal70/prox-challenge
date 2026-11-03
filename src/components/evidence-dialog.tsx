@@ -4,6 +4,7 @@ import Image from "next/image";
 import { type KeyboardEvent, useEffect, useRef } from "react";
 
 import type { EvidenceSource } from "@/components/recorded-proof-data";
+import { DitherScan } from "@/components/ui/dither-scan";
 import {
   assertTrustedLocalAssetUrl,
   trustedManualPdfUrl,
@@ -54,13 +55,27 @@ export function EvidenceDialog({
         </div>
         <div className="evidence-dialog__body">
           <figure className="manual-page">
-            <Image
-              src={assetUrl}
-              alt={`${source.region ? "Manual region" : "Manual page"} ${source.pdfPageNumber}: ${source.section}`}
-              width={900}
-              height={1273}
-              sizes="(max-width: 720px) 92vw, 52vw"
-            />
+            {source.region ? (
+              <DitherScan
+                src={assetUrl}
+                alt={`Manual region ${source.pdfPageNumber}: ${source.section}`}
+                passes={3}
+                duration={700}
+                pause={100}
+                pixelSize={5}
+                blur={4}
+                fit="contain"
+                theme="light"
+              />
+            ) : (
+              <Image
+                src={assetUrl}
+                alt={`Manual page ${source.pdfPageNumber}: ${source.section}`}
+                width={900}
+                height={1273}
+                sizes="(max-width: 720px) 92vw, 52vw"
+              />
+            )}
           </figure>
           <aside className="proof-rail" aria-label="Evidence details">
             <p className="proof-rail__label">SOURCE 1</p>
