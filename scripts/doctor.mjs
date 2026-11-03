@@ -37,13 +37,16 @@ add(
 
 const needsKey = mode !== "build-no-key";
 const key = process.env.ANTHROPIC_API_KEY?.trim();
+const keyHasExpectedPrefix = key?.startsWith("sk-ant-") ?? false;
 add(
   "config.anthropic-key",
-  needsKey ? (key?.startsWith("sk-ant-") ? "pass" : "fail") : "skipped",
+  needsKey ? (keyHasExpectedPrefix ? "pass" : "fail") : "skipped",
   needsKey
-    ? key
-      ? "ANTHROPIC_API_KEY is present but its prefix is invalid."
-      : "ANTHROPIC_API_KEY is missing for a live mode."
+    ? keyHasExpectedPrefix
+      ? "ANTHROPIC_API_KEY is present with the expected prefix."
+      : key
+        ? "ANTHROPIC_API_KEY is present but its prefix is invalid."
+        : "ANTHROPIC_API_KEY is missing for a live mode."
     : "Live provider checks are disabled in build-no-key mode.",
   needsKey
     ? "Set a valid Anthropic key in .env.local, then restart the command."

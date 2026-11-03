@@ -120,6 +120,8 @@ node scripts/check-docs.mjs
 
 The offline eval report is written to `evals/results/offline.json`. Live provider calls are deliberately not part of `npm run verify`; no test command should spend credits without an explicit operator action.
 
+The latest explicitly authorized live-local smoke test ran on November 2, 2026 against the real Claude Agent SDK using the TIG polarity challenge. It returned HTTP 200 with a committed page-24 citation, deterministic `polarity:v1:tig` receipt, polarity diagram, preserved power-off evidence, and `caution` hazard level in 24.1 seconds. The bounded run used eight turns and approximately USD 0.06.
+
 ## Repository map
 
 ```text

@@ -96,6 +96,21 @@ KNOWLEDGE OPS
 
 ## Live eval suites
 
+### Latest live Agent SDK smoke
+
+On November 2, 2026, an explicitly authorized `live-local` run asked the TIG polarity challenge through `/api/chat`. The real Claude Agent SDK completed in 24.1 seconds and returned:
+
+- HTTP 200 with ordered NDJSON lifecycle events;
+- a committed `polarity:v1:tig` computation receipt and polarity diagram;
+- owner-manual PDF page 24 as the verified source;
+- exact power-off evidence retained beside the deterministic answer;
+- a server-derived `caution` hazard level;
+- eight turns at approximately USD 0.06.
+
+No key value, provider trace, or environment dump is stored in the repository.
+
+### Planned live suites
+
 - PR smoke: 8 cases, ≤$2, ≤8 min.
 - Core: 40 independently labelled cases, ≤$12, ≤30 min, sealed scoring implementation outside tuning path.
 - Extended: up to 40 cases, ≤$12, only for shipped optional features.
