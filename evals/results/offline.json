@@ -3,8 +3,8 @@
   "suite": "offline-core",
   "casesVersion": 2,
   "corpusVersion": "14c0b1eb5c7ac795",
-  "startedAt": "2026-11-04T23:28:29.115Z",
-  "completedAt": "2026-11-04T23:28:29.209Z",
+  "startedAt": "2026-11-04T23:35:38.199Z",
+  "completedAt": "2026-11-04T23:35:38.339Z",
   "summary": {
     "total": 16,
     "passed": 16,
@@ -100,7 +100,7 @@
       "id": "spool-gun-aluminum-setup",
       "category": "retrieval-holdout",
       "pass": true,
-      "details": "owner-manual:pdf-17 retrieved at rank 3"
+      "details": "owner-manual:pdf-17 retrieved at rank 4"
     },
     {
       "id": "cross-page-penetration",

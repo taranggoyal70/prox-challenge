@@ -49,6 +49,89 @@
     "assetSha256": "3c98c315927ac35711560fd225a642f147118e2fba4512986cf89bf2d18fcf30"
   },
   {
+    "id": "owner-manual:pdf-8:front-panel",
+    "sourceId": "owner-manual:pdf-8",
+    "caption": "Annotated OmniPro 220 front panel identifying the LCD, home/back buttons, control knobs, power switch, gun socket, gas outlet, polarity sockets, and wire-feed power cable.",
+    "entities": [
+      "LCD display",
+      "control knob",
+      "power switch",
+      "MIG gun socket",
+      "positive socket",
+      "negative socket",
+      "wire-feed power cable"
+    ],
+    "relationships": [
+      "front-panel labels locate controls and cable connections"
+    ],
+    "aliases": [
+      "front controls",
+      "which knob",
+      "where is the socket",
+      "display panel"
+    ],
+    "intents": [
+      "identify front-panel controls",
+      "locate a connector"
+    ],
+    "regions": [
+      {
+        "id": "controls",
+        "label": "Annotated front-panel controls",
+        "bounds": {
+          "x": 0.07,
+          "y": 0.08,
+          "width": 0.87,
+          "height": 0.72
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/owner-manual-pdf-8-front-panel.webp",
+    "assetSha256": "80864fd0546969e56945b39ad679b0a828fbf05f8dbd0f880a7c0a628657da89"
+  },
+  {
+    "id": "quick-start:pdf-1:wire-feed",
+    "sourceId": "quick-start:pdf-1",
+    "caption": "Quick-start wire-feed sequence showing spool loading, feed guides, nozzle and tip removal, cold-wire feed, tension adjustment, and safe reconnection.",
+    "entities": [
+      "wire spool",
+      "feed mechanism",
+      "feed guides",
+      "contact tip",
+      "nozzle",
+      "wire tension"
+    ],
+    "relationships": [
+      "wire passes through both feed guides",
+      "feed tension is adjusted before welding"
+    ],
+    "aliases": [
+      "load wire spool",
+      "wire feed mechanism",
+      "feed guides",
+      "wire tension"
+    ],
+    "intents": [
+      "set up wire feed",
+      "load a spool",
+      "adjust feed tension"
+    ],
+    "regions": [
+      {
+        "id": "wire-feed",
+        "label": "Wire spool and feed-mechanism setup",
+        "bounds": {
+          "x": 0.03,
+          "y": 0.1,
+          "width": 0.94,
+          "height": 0.55
+        }
+      }
+    ],
+    "assetUrl": "/manual-regions/quick-start-pdf-1-wire-feed.webp",
+    "assetSha256": "9c00c2cb3769624f6d6091315d5d4874888ac03084da09d34b5d6a92567b1684"
+  },
+  {
     "id": "owner-manual:pdf-13:flux-core-polarity",
     "sourceId": "owner-manual:pdf-13",
     "caption": "DCEN gasless flux-cored polarity: ground clamp in positive socket and wire feed power cable in negative socket.",

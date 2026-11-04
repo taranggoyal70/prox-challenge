@@ -9,12 +9,12 @@ const visualPath = join(root, "src/knowledge/generated/visual-evidence.json");
 const buildLockPath = join(root, "src/knowledge/generated/.build-in-progress");
 const building = () => existsSync(buildLockPath);
 const waitForBuild = () => {
-  console.error("ARCLENS_KNOWLEDGE_BUILDING\nProblem: Knowledge generation is still in progress.\nCause: build:knowledge is replacing generated page assets.\nFix: Wait for build:knowledge to finish, then rerun npm run check:knowledge.\nDocs: docs/developer-experience.md#public-error-contract");
+  console.error("ARCLENS_KNOWLEDGE_BUILDING\nProblem: Knowledge generation is still in progress.\nCause: build:knowledge is replacing generated page assets.\nFix: Wait for build:knowledge to finish, then rerun npm run check:knowledge.\nDocs: docs/errors.md#arclens-knowledge-building");
   process.exit(2);
 };
 const fail = (message) => {
   if (building()) waitForBuild();
-  console.error(`ARCLENS_KNOWLEDGE_INVALID\nProblem: The committed knowledge package is invalid.\nCause: ${message}\nFix: Run npm run build:knowledge with the pinned toolchain, inspect the diff, then rerun npm run check:knowledge.\nDocs: docs/developer-experience.md#public-error-contract`);
+  console.error(`ARCLENS_KNOWLEDGE_INVALID\nProblem: The committed knowledge package is invalid.\nCause: ${message}\nFix: Run npm run build:knowledge with the pinned toolchain, inspect the diff, then rerun npm run check:knowledge.\nDocs: docs/errors.md#arclens-knowledge-invalid`);
   process.exit(1);
 };
 if (building()) waitForBuild();

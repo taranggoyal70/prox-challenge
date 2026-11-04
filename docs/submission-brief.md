@@ -7,7 +7,7 @@ Technical support agents fail when they produce plausible prose without understa
 ## What I built
 
 - A real Claude Agent SDK loop with exactly five in-process MCP tools and no SDK built-ins.
-- A checksummed 51-page knowledge package covering text, source pages, image-only charts, diagrams, and eight exact visual regions.
+- A checksummed 51-page knowledge package covering text, source pages, image-only charts, diagrams, and ten exact visual regions.
 - Process-specific deterministic facts for MIG, flux-core, TIG, and stick rather than generic welding advice.
 - Three visual programs: an interactive duty-cycle timeline, a socket-level polarity diagram, and a guided troubleshooting flow.
 - Proof Mode that connects an answer to the exact manual crop, transformation state, source identifier, and full-page context.
@@ -33,7 +33,6 @@ Artifacts are typed server objects with computation receipts and source IDs. Pro
 
 ## Evidence
 
-- Hosted app: <https://arclens-omnipro.vercel.app>
 - Repository: <https://github.com/taranggoyal70/prox-challenge>
 - 16/16 deterministic, cross-page, integrity, and retrieval holdouts pass.
 - A real live-local TIG polarity run completed in 24.1 seconds for approximately USD 0.06 and returned a committed page-24 answer, receipt, artifact, exact power-off evidence, and caution classification.

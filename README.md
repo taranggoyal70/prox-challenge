@@ -4,13 +4,11 @@ ArcLens is a source-grounded visual product expert for the Vulcan OmniPro 220. I
 
 The default experience needs no API key and makes no provider calls. It opens a complete Recorded Proof of the three challenge flows so an evaluator can inspect the product immediately.
 
-**Hosted evaluation:** [Open ArcLens on Vercel](https://arclens-omnipro.vercel.app)
-
 ![ArcLens evaluator workspace](docs/assets/arclens-home.png)
 
 ## Evaluate it in 90 seconds
 
-1. Open the [hosted workspace](https://arclens-omnipro.vercel.app) and choose any of the three supplied hard questions.
+1. Run `npm ci && npm run dev`, open `http://localhost:3000`, and choose any of the three supplied hard questions.
 2. Change the documented duty-cycle rating or advance the guided porosity checks—the visual is interactive, not a screenshot.
 3. Open **Proof Mode**. The real 23rd.dev Dither Scan resolves into the exact cited manual region, followed by full-page PDF context.
 4. Inspect `src/agent/options.ts`, `src/agent/tools.ts`, and `src/domain/grounding.ts` to verify the five-tool Claude Agent SDK boundary and server-side grounding.
@@ -18,7 +16,32 @@ The default experience needs no API key and makes no provider calls. It opens a 
 
 For the engineering decisions and tradeoffs behind the submission, read the [founder review brief](docs/submission-brief.md).
 
-## Run it in two commands
+## Evaluator live path
+
+The challenge’s primary path uses one Anthropic key and takes under two minutes:
+
+```bash
+cp .env.example .env.local
+npm ci
+```
+
+Set these two values in `.env.local`:
+
+```dotenv
+ARCLENS_MODE=live-local
+ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Then run:
+
+```bash
+npm run doctor -- --mode live-local
+npm run dev
+```
+
+Open `http://localhost:3000`. The header shows **Live · local** and the composer sends questions through the real Claude Agent SDK.
+
+## No-key fallback
 
 Requirements: Node.js 24 and npm 11. The repository pins Node `24.10.0` in `.nvmrc`.
 
@@ -153,10 +176,10 @@ docs/                    product, architecture, security, testing, and operation
 
 - Start here: [Getting started](docs/getting-started.md)
 - Operate it: [Commands](docs/commands.md), [Configuration](docs/configuration.md), [Error reference](docs/errors.md)
-- Understand it: [Architecture](docs/architecture.md), [Security posture](docs/security.md), [UI design contract (implemented and planned flows)](docs/designs/arclens-ui-spec.md)
+- Understand it: [Architecture](docs/architecture.md) and [Security posture](docs/security.md)
 - Validate it: [Test plan](docs/test-plan.md), [Release checklist](docs/release-checklist.md), [Demo script](docs/demo-script.md)
 - Maintain it: [Knowledge build guide](docs/how-to-maintain-knowledge.md), [Contributing](CONTRIBUTING.md), [Security policy](SECURITY.md), [Changelog](CHANGELOG.md)
-- Review the design process: [Assessment](docs/designs/arclens-assessment.md) and [developer-experience contract](docs/developer-experience.md)
+- Review the submission rationale: [Founder review brief](docs/submission-brief.md)
 
 ## Troubleshooting
 
