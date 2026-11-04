@@ -3,8 +3,8 @@
   "suite": "offline-core",
   "casesVersion": 2,
   "corpusVersion": "14c0b1eb5c7ac795",
-  "startedAt": "2026-10-26T10:30:52.158Z",
-  "completedAt": "2026-10-26T10:30:52.257Z",
+  "startedAt": "2026-11-04T23:28:29.115Z",
+  "completedAt": "2026-11-04T23:28:29.209Z",
   "summary": {
     "total": 16,
     "passed": 16,

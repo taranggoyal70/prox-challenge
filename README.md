@@ -6,7 +6,17 @@ The default experience needs no API key and makes no provider calls. It opens a 
 
 **Hosted evaluation:** [Open ArcLens on Vercel](https://arclens-omnipro.vercel.app)
 
-![ArcLens guided flux-core porosity diagnosis](docs/assets/arclens-porosity-flow.png)
+![ArcLens evaluator workspace](docs/assets/arclens-home.png)
+
+## Evaluate it in 90 seconds
+
+1. Open the [hosted workspace](https://arclens-omnipro.vercel.app) and choose any of the three supplied hard questions.
+2. Change the documented duty-cycle rating or advance the guided porosity checks—the visual is interactive, not a screenshot.
+3. Open **Proof Mode**. The real 23rd.dev Dither Scan resolves into the exact cited manual region, followed by full-page PDF context.
+4. Inspect `src/agent/options.ts`, `src/agent/tools.ts`, and `src/domain/grounding.ts` to verify the five-tool Claude Agent SDK boundary and server-side grounding.
+5. Run `npm run verify && npm run eval:offline` for the complete offline gate.
+
+For the engineering decisions and tradeoffs behind the submission, read the [founder review brief](docs/submission-brief.md).
 
 ## Run it in two commands
 
