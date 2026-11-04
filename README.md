@@ -60,22 +60,9 @@ Each recorded fixture includes a domain-built visual, cited manual pages, and an
 
 If port 3000 is busy, use `PORT=3001 npm run dev` and open [http://localhost:3001](http://localhost:3001).
 
-## Enable live Claude answers
+## Live safety limits
 
-Live mode uses the Claude Agent SDK and can incur Anthropic API charges. Copy the example configuration, add one key, and restart the development server:
-
-```bash
-cp .env.example .env.local
-```
-
-```dotenv
-ARCLENS_MODE=live-local
-ANTHROPIC_API_KEY=sk-ant-...
-```
-
-Then run `npm run doctor -- --mode live-local` followed by `npm run dev`. The header should show **Live · local**. Every live request is limited to eight turns and a maximum configured spend of USD 0.75; lower the cap with `ARCLENS_MAX_BUDGET_USD` if desired.
-
-See [Getting started](docs/getting-started.md) for expected output and a complete smoke test, or [Configuration](docs/configuration.md) for all modes and variables.
+Live mode can incur Anthropic API charges. Every request is limited to eight turns, a 45-second deadline, and a maximum configured spend of USD 0.75; lower the cap with `ARCLENS_MAX_BUDGET_USD` if desired. See [Getting started](docs/getting-started.md) for the complete smoke test or [Configuration](docs/configuration.md) for all modes and variables.
 
 ## What makes the answer trustworthy
 
